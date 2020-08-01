@@ -1,4 +1,4 @@
-var theUniverse = null;
+ var theUniverse = null;
 var frame1 = null,
 	frame2 = null,
 	currentFrame = null,
@@ -6,8 +6,10 @@ var frame1 = null,
 
 var numRows = 8,
 	numCols = 8;
+  
+var playing = false;
 
-window.addEventListener('keydown', function() { tick();
+window.addEventListener('keydown', function() { play();
 } );
 
 window.addEventListener('load', function() {
@@ -44,6 +46,25 @@ window.addEventListener('load', function() {
 	backFrame = frame2;
 	navigator.requestMIDIAccess({}).then( onMIDIInit, onMIDIFail );
 } );
+
+var playButton = document.getElementById("playButton");
+function play()
+{
+	playing = !playing;
+	playButton.value = (Boolean(playing)) ? "Stop" : "Play";
+  loop();
+}
+
+function loop()
+{
+  var intervalId = setInterval(function(){
+     if(!Boolean(playing)){
+        clearInterval(intervalId);
+     }
+     tick();
+  }, 100);
+}
+
 
 var selectMIDIIn = null;
 var selectMIDIOut = null;
@@ -265,7 +286,7 @@ function midiProc(event) {
     //noteOff(b);
   } else if (cmd == 9) {  // Note on
     if ((noteNumber&0x0f)==8)
-      tick();
+      play();
     else {
       var x = noteNumber & 0x0f;
       var y = (noteNumber & 0xf0) >> 4;
