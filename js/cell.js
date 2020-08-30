@@ -47,12 +47,12 @@ window.addEventListener('load', function() {
 	navigator.requestMIDIAccess({}).then( onMIDIInit, onMIDIFail );
 } );
 
-var playButton = document.getElementById("playButton");
 function play()
 {
+	var playButton = document.getElementById("playButton");
 	playing = !playing;
 	playButton.value = ((playing) ? "Stop" : "Play");
-  loop();
+	loop();
 }
 
 function loop()
