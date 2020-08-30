@@ -51,14 +51,14 @@ var playButton = document.getElementById("playButton");
 function play()
 {
 	playing = !playing;
-	playButton.value = (Boolean(playing)) ? "Stop" : "Play";
+	playButton.value = ((playing) ? "Stop" : "Play");
   loop();
 }
 
 function loop()
 {
   var intervalId = setInterval(function(){
-     if(!Boolean(playing)){
+     if(!playing){
         clearInterval(intervalId);
      }
      tick();
